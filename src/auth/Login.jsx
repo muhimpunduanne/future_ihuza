@@ -3,94 +3,116 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
 export default function Login() {
-    const { login, register } = useAuth();
-    const navigate = useNavigate();
+  const { login, register } = useAuth();
+  const navigate = useNavigate();
 
-    const [isRegister, setIsRegister] = useState(false);
-    const [form, setForm] = useState({
-        name: "",
-        email: "",
-        password: "",
-    });
-    const [error, setError] = useState("");
+  const [isRegister, setIsRegister] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
 
-    const handleChange = (e) =>
-        setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
 
-        try {
-            if (isRegister) {
-                await register(form);
-            }
-            await login(form);
+    try {
+      if (isRegister) {
+        await register(form);
+      }
+      await login(form);
 
-            const session = JSON.parse(localStorage.getItem("auth_session"));
-            navigate(session.role === "ADMIN" ? "/admin" : "/dashboard");
-        } catch (err) {
-            setError(err.message);
-        }
-    };
+      const session = JSON.parse(localStorage.getItem("auth_session"));
+      navigate(session.role === "ADMIN" ? "/admin" : "/dashboard");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
-            <form
-                onSubmit={handleSubmit}
-                className="bg-white p-6 w-96 space-y-4 shadow"
-            >
-                <h2 className="text-xl font-bold">
-                    {isRegister ? "Create Account" : "Login"}
-                </h2>
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+      <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-8">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+          {isRegister ? "Create Account" : "Welcome Back"}
+        </h2>
 
-                {isRegister && (
-                    <input
-                        name="name"
-                        placeholder="Full Name"
-                        className="border p-2 w-full"
-                        onChange={handleChange}
-                        required
-                    />
-                )}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {isRegister && (
+            <div>
+              <label className="block text-sm font-medium text-gray-600">
+                Full Name
+              </label>
+              <input
+                name="name"
+                placeholder="John Doe"
+                className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                onChange={handleChange}
+                required
+              />
+            </div>
+          )}
 
-                <input
-                    name="email"
-                    placeholder="Email"
-                    className="border p-2 w-full"
-                    onChange={handleChange}
-                    required
-                />
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Email
+            </label>
+            <input
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-                <input
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    className="border p-2 w-full"
-                    onChange={handleChange}
-                    required
-                />
+          <div>
+            <label className="block text-sm font-medium text-gray-600">
+              Password
+            </label>
+            <input
+              name="password"
+              type="password"
+              placeholder="••••••••"
+              className="mt-1 w-full rounded-lg border border-gray-300 p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-                {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && (
+            <p className="text-red-500 text-sm text-center">{error}</p>
+          )}
 
-                <button className="w-full bg-black text-white p-2">
-                    {isRegister ? "Register" : "Login"}
-                </button>
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg shadow-md transition duration-200"
+          >
+            {isRegister ? "Register" : "Login"}
+          </button>
+        </form>
 
-                <button
-                    type="button"
-                    onClick={() => setIsRegister(!isRegister)}
-                    className="text-sm text-blue-600"
-                >
-                    {isRegister
-                        ? "Already have an account?"
-                        : "Create new account"}
-                </button>
-
-                <p className="text-xs text-gray-500">
-                    Admin email: <b>admin@dashboard.com</b>
-                </p>
-            </form>
+        <div className="mt-4 text-center">
+          <button
+            type="button"
+            onClick={() => setIsRegister(!isRegister)}
+            className="text-sm text-indigo-600 hover:underline"
+          >
+            {isRegister
+              ? "Already have an account? Login"
+              : "Create new account"}
+          </button>
         </div>
-    );
+
+        <p className="text-xs text-gray-500 text-center mt-6">
+          Admin email: <b>admin@dashboard.com</b>
+        </p>
+      </div>
+    </div>
+  );
 }
