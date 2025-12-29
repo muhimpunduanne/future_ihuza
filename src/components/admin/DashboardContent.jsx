@@ -1,63 +1,175 @@
 import {AlertTriangle, Box, CheckCircle, CheckDone01, Package, Users01, Users02, UsersUp} from "@untitledui/icons";
-import { useEffect, useState } from "react";
-import {useTheme} from "../../context/ThemeContext.jsx";
-export default function DashboardContent() {
-    const { theme } = useTheme();
-    const [stats, setStats] = useState([]);
-    const [products, setProducts] = useState([]);
-    const [users, setUsers] = useState([]);
 
-    useEffect(() => {
-        // Fetch products from localStorage or fallback to empty array
-        const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
-        setProducts(storedProducts);
+function DashboardContent() {
 
-        // Fetch users from localStorage or fallback to empty array
-        const storedUsers = JSON.parse(localStorage.getItem("users_db")) || [];
-        setUsers(storedUsers);
+    const stats = [
+        {
+            title: "Total Users",
+            value: 116,
+            icon: UsersUp,
+            bg: "bg-blue-50",
+            iconBg: "bg-blue-100",
+            iconColor: "text-blue-600",
+        },
+        {
+            title: "Total Products",
+            value: 100,
+            icon: Package,
+            bg: "bg-indigo-50",
+            iconBg: "bg-indigo-100",
+            iconColor: "text-indigo-600",
+        },
+        {
+            title: "Assigned Products",
+            value: 10,
+            icon: CheckDone01,
+            bg: "bg-green-50",
+            iconBg: "bg-green-100",
+            iconColor: "text-green-600",
+        },
+        {
+            title: "Unassigned Products",
+            value: 90,
+            icon: AlertTriangle,
+            bg: "bg-yellow-50",
+            iconBg: "bg-yellow-100",
+            iconColor: "text-yellow-600",
+        },
+    ];
 
-        // Compute stats dynamically based on real data
-        const totalProducts = storedProducts.length;
-        const assignedProducts = storedProducts.filter(p => p.assignedTo).length;
 
-        const unassignedProducts = totalProducts - assignedProducts;
-        const totalUsers = storedUsers.length;
 
-        setStats([
-            {
-                title: "Total Users",
-                value: totalUsers,
-                icon: UsersUp,
-                bg: "bg-blue-50",
-                iconBg: "bg-blue-100",
-                iconColor: "text-blue-600",
-            },
-            {
-                title: "Total Products",
-                value: totalProducts,
-                icon: Package,
-                bg: "bg-indigo-50",
-                iconBg: "bg-indigo-100",
-                iconColor: "text-indigo-600",
-            },
-            {
-                title: "Assigned Products",
-                value: assignedProducts,
-                icon: CheckDone01,
-                bg: "bg-green-50",
-                iconBg: "bg-green-100",
-                iconColor: "text-green-600",
-            },
-            {
-                title: "Unassigned Products",
-                value: unassignedProducts,
-                icon: AlertTriangle,
-                bg: "bg-yellow-50",
-                iconBg: "bg-yellow-100",
-                iconColor: "text-yellow-600",
-            },
-        ]);
-    }, []);
+    const products = [
+        {
+            title: "MacBook Pro 16”",
+            type: "Laptops",
+            date: "Dec 10, 2024",
+            status: "In Stock",
+            statusColor: "bg-green-100 text-green-700",
+        },
+        {
+            title: "Dell XPS 13",
+            type: "Laptops",
+            date: "Dec 9, 2024",
+            status: "In Stock",
+            statusColor: "bg-green-100 text-green-700",
+        },
+        {
+            title: "iPhone 15 Pro",
+            type: "Mobile",
+            date: "Dec 8, 2024",
+            status: "Low Stock",
+            statusColor: "bg-yellow-100 text-yellow-700",
+        },
+        {
+            title: "iPad Air",
+            type: "Tablets",
+            date: "Dec 7, 2024",
+            status: "In Stock",
+            statusColor: "bg-green-100 text-green-700",
+        },
+        {
+            title: "Surface Pro 9",
+            type: "Tablets",
+            date: "Dec 6, 2024",
+            status: "Out of Stock",
+            statusColor: "bg-red-100 text-red-700",
+        },
+    ];
+
+
+    const users = [
+        {
+            name: "John Smith",
+            email: "john.smith@ihuza.com",
+            role: "Admin",
+            roleColor: "bg-purple-100 text-purple-700",
+            status: "Active",
+            statusColor: "bg-green-100 text-green-700",
+            lastLogin: "2 hours ago",
+        },
+        {
+            name: "Sarah Johnson",
+            email: "sarah.j@ihuza.com",
+            role: "Manager",
+            roleColor: "bg-blue-100 text-blue-700",
+            status: "Active",
+            statusColor: "bg-green-100 text-green-700",
+            lastLogin: "5 hours ago",
+        },
+        {
+            name: "Michael Brown",
+            email: "m.brown@ihuza.com",
+            role: "Staff",
+            roleColor: "bg-gray-100 text-gray-700",
+            status: "Active",
+            statusColor: "bg-green-100 text-green-700",
+            lastLogin: "1 day ago",
+        },
+        {
+            name: "Emily Davis",
+            email: "emily.d@ihuza.com",
+            role: "Staff",
+            roleColor: "bg-gray-100 text-gray-700",
+            status: "Inactive",
+            statusColor: "bg-red-100 text-red-700",
+            lastLogin: "3 days ago",
+        },
+        {
+            name: "David Wilson",
+            email: "d.wilson@ihuza.com",
+            role: "Staff",
+            roleColor: "bg-gray-100 text-gray-700",
+            status: "Active",
+            statusColor: "bg-green-100 text-green-700",
+            lastLogin: "6 hours ago",
+        },
+        {
+            name: "Lisa Anderson",
+            email: "lisa.a@ihuza.com",
+            role: "Manager",
+            roleColor: "bg-blue-100 text-blue-700",
+            status: "Active",
+            statusColor: "bg-green-100 text-green-700",
+            lastLogin: "30 min ago",
+        },
+        {
+            name: "Robert Taylor",
+            email: "r.taylor@ihuza.com",
+            role: "Staff",
+            roleColor: "bg-gray-100 text-gray-700",
+            status: "Active",
+            statusColor: "bg-green-100 text-green-700",
+            lastLogin: "2 days ago",
+        },
+        {
+            name: "Jennifer Miller",
+            email: "j.miller@ihuza.com",
+            role: "Staff",
+            roleColor: "bg-gray-100 text-gray-700",
+            status: "Active",
+            statusColor: "bg-green-100 text-green-700",
+            lastLogin: "4 hours ago",
+        },
+        {
+            name: "Christopher Lee",
+            email: "c.lee@ihuza.com",
+            role: "Admin",
+            roleColor: "bg-purple-100 text-purple-700",
+            status: "Active",
+            statusColor: "bg-green-100 text-green-700",
+            lastLogin: "1 hour ago",
+        },
+        {
+            name: "Amanda White",
+            email: "a.white@ihuza.com",
+            role: "Staff",
+            roleColor: "bg-gray-100 text-gray-700",
+            status: "Inactive",
+            statusColor: "bg-red-100 text-red-700",
+            lastLogin: "1 week ago",
+        },
+    ];
 
 
 
@@ -153,21 +265,11 @@ export default function DashboardContent() {
         },
     ];
 
+      return (
+        <main className="mt-16 ml-64 p-6 bg-gray-50 min-h-screen">
 
-
-
-
-    return (
-        <main
-            className={`mt-16 ml-64 p-6 min-h-screen ${
-                theme === "light"
-                    ? "bg-gray-50 text-black"
-                    : "bg-gray-900 text-white"
-            }`}
-        >
-
-            <div className="flex flex-wrap items-center justify-center w-full mb-6">
-                <div className={`m-4 w-full rounded-xl p-8 shadow-md ${theme === "dark" ? "bg-gray-800 text-white" : "bg-blue-700 text-white"}`}>
+            <div className="flex flex-wrap items-center justify-center w-full">
+                <div className="m-4 w-full rounded-xl bg-blue-700 p-8 text-white shadow-md">
                     <div className="flex items-start gap-4">
 
                         {/* Icon */}
@@ -201,33 +303,20 @@ export default function DashboardContent() {
             <div className="mb-6 grid grid-cols-1 gap-6 p-4 md:grid-cols-4">
                 {stats.map((item) => {
                     const Icon = item.icon;
+
                     return (
                         <div
                             key={item.title}
-                            className={`rounded-2xl p-6 flex shadow-sm transition-colors ${
-                                theme === "light" ? "bg-white" : "bg-gray-800"
-                            }`}
+                            className="rounded-2xl bg-white p-6 shadow-sm flex"
                         >
-                            <div
-                                className={`flex h-12 w-12 items-center justify-center rounded-xl ${
-                                    item.iconBg
-                                }`}
-                            >
-                                <Icon className={`h-6 w-6 ${item.iconColor}`} />
+                            <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${item.iconBg}`}>
+                                <item.icon className={`h-6 w-6 ${item.iconColor}`} />
                             </div>
-                            <div className="px-2 gap-4">
-                                <h1
-                                    className={`text-4xl font-bold ${
-                                        theme === "light" ? "text-black/80" : "text-white"
-                                    }`}
-                                >
+                            <div className=" px-2 gap-4">
+                                <h1 className="text-4xl font-bold text-black/80">
                                     {item.value}
                                 </h1>
-                                <p
-                                    className={`text-sm font-semibold ${
-                                        theme === "light" ? "text-gray-500" : "text-gray-300"
-                                    }`}
-                                >
+                                <p className="text-sm font-semibold text-gray-500">
                                     {item.title}
                                 </p>
                             </div>
@@ -237,132 +326,113 @@ export default function DashboardContent() {
             </div>
 
 
-
             {/* Content Card */}
             <div className="p-4">
-                <div
-                    className={`rounded-md p-6 shadow-sm transition-colors ${
-                        theme === "light" ? "bg-white" : "bg-gray-800"
-                    }`}
-                >
-                    <h3
-                        className={`font-semibold mb-2 ${
-                            theme === "light" ? "text-black" : "text-white"
-                        }`}
-                    >
-                        Recent Added Products
-                    </h3>
-
-                    {products.length === 0 ? (
-                        <p
-                            className={`text-center p-6 ${
-                                theme === "light" ? "text-gray-500" : "text-gray-300"
-                            }`}
-                        >
-                            No products found
-                        </p>
-                    ) : (
-                        <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-4">
-                            {products.map((product, index) => (
-                                <div
-                                    key={index}
-                                    className={`p-4 flex justify-between gap-8 rounded-md border transition-colors ${
-                                        theme === "light"
-                                            ? "bg-white border-gray-100"
-                                            : "bg-gray-700 border-gray-600"
-                                    }`}
-                                >
-                                    <div className="flex flex-col gap-1">
-                                        <h1
-                                            className={`text-md font-semibold mb-2 ${
-                                                theme === "light" ? "text-black" : "text-white"
-                                            }`}
-                                        >
-                                            {product.title}
-                                        </h1>
-                                        <p
-                                            className={`text-sm ${
-                                                theme === "light" ? "text-gray-500" : "text-gray-300"
-                                            }`}
-                                        >
-                                            {product.type}
-                                        </p>
-                                        <p
-                                            className={`text-sm ${
-                                                theme === "light" ? "text-gray-500" : "text-gray-300"
-                                            }`}
-                                        >
-                                            {product.date}
-                                        </p>
-                                    </div>
-                                    <div>
-              <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      product.statusColor ||
-                      (theme === "light"
-                          ? "bg-gray-100 text-gray-700"
-                          : "bg-gray-600 text-gray-200")
-                  }`}
-              >
-                {product.status || "Unknown"}
-              </span>
-                                    </div>
+                <div className="bg-white rounded-md p-6 shadow-sm">
+                    <h3 className="font-semibold mb-2">Recent Added Products</h3>
+                    <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-4">
+                        {products.map((product, index) => (
+                            <div
+                                key={index}
+                                className="p-4 flex justify-between gap-8 border border-gray-100 rounded-md">
+                                <div className="fitems-start gap-4">
+                                    <h1 className="text-md text-black font-semibold mb-2">
+                                        {product.title}
+                                    </h1>
+                                    <p className="text-sm text-gray-500 mb-1">
+                                        {product.type}
+                                    </p>
+                                    <p className="text-sm text-gray-500">
+                                        {product.date}
+                                    </p>
                                 </div>
-                            ))}
-                        </div>
-                    )}
+                                <div>
+<span
+    className={`px-3 py-1 rounded-full text-xs font-medium ${product.statusColor}`}
+>
+  {product.status}
+</span>
+
+                                </div>
+
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
-
 
 
             {/*{ users }*/}
             <div className="p-4">
                 <div className="bg-white rounded-md p-6 shadow-sm">
-                    <h3 className="font-semibold mb-2 text-2xl">Users</h3>
-                    {users.length === 0 ? (
-                        <p className="text-center text-gray-500 p-6">No users found</p>
-                    ) : (
+                    <div className="flex gap-4 justify-between">
                         <div className="p-4">
-                            <div className="grid grid-cols-[250px_1fr_1fr_1fr_1fr] items-center bg-gray-100 p-4 font-medium text-gray-500">
-                                <span>USER</span>
-                                <span className="text-center">ROLE</span>
-                                <span className="text-center">STATUS</span>
-                                <span className="text-center">LAST LOGIN</span>
-                                <span className="text-center">ACTIONS</span>
-                            </div>
-                            {users.map((user, index) => (
-                                <div
-                                    key={index}
-                                    className="grid grid-cols-[250px_1fr_1fr_1fr_1fr] items-center border-b border-gray-200 p-4 hover:bg-gray-50"
-                                >
-                                    <div className="flex gap-4">
-                                        <div className="p-2">
-                                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-300">
-                                                <Users02 className="h-5 w-5 text-white" />
-                                            </div>
-                                        </div>
-                                        <div className="flex flex-col p-2">
-                                            <span className="font-medium text-gray-900">{user.name}</span>
-                                            <span className="text-sm text-gray-500">{user.email}</span>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-4 items-center justify-center">
-                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${user.roleColor || "bg-gray-100 text-gray-700"}`}>{user.role}</span>
-                                    </div>
-                                    <div className="flex gap-4 items-center justify-center">
-                                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${user.statusColor || "bg-gray-100 text-gray-700"}`}>{user.status}</span>
-                                    </div>
-                                    <span className="text-center text-gray-700">{user.lastLogin || "N/A"}</span>
-                                    <div className="flex justify-center gap-2">
-                                        <button className="text-blue-600 text-sm">Edit</button>
-                                        <button className="text-red-500 text-sm">Delete</button>
+                            <h3 className="font-semibold mb-2 text-2xl">Users</h3>
+                        </div>
+                        <div className="p-4">
+                            <button className=" border border-blue-600 bg-blue-500 rounded-lg px-4 py-2 shadow text-white">
+                                Add User
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="p-4">
+                        {/* Table Header */}
+                        <div className="grid grid-cols-[250px_1fr_1fr_1fr_1fr] items-center bg-gray-100 p-4 font-medium text-gray-500">
+                            <span>USER</span>
+                            <span className="text-center">ROLE</span>
+                            <span className="text-center">STATUS</span>
+                            <span className="text-center">LAST LOGIN</span>
+                            <span className="text-center">ACTIONS</span>
+                        </div>
+
+                        {/* Table Rows */}
+                        {users.map((user, index) => (
+                            <div
+                                key={index}
+                                className="grid grid-cols-[250px_1fr_1fr_1fr_1fr] items-center border-b border-gray-200 p-4 hover:bg-gray-50"
+                            >
+                                {/* USER: name + email */}
+                                <div className="flex gap-4">
+                                    <div className="p-2">
+                                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-300">
+                                        <Users02 className="h-5 w-5 text-white" />
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                    )}
+                                    <div className="flex flex-col p-2">
+                                        <span className="font-medium text-gray-900">{user.name}</span>
+                                        <span className="text-sm text-gray-500">{user.email}</span>
+                                    </div>
+                                </div>
+
+
+                                {/* ROLE */}
+                                <div className="flex gap-4 items-center justify-center">
+                                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${user.roleColor}`}>{user.role}</span>
+                                </div>
+
+
+                                {/* STATUS */}
+                                <div className="flex gap-4 items-center justify-center">
+                                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${user.statusColor}`}>{user.status}</span>
+                                </div>
+
+
+                                {/* LAST LOGIN */}
+                                <span className="text-center text-gray-700">{user.lastlogin}</span>
+
+                                {/* ACTIONS */}
+                                <div className="flex justify-center gap-2">
+                                    <button className="text-blue-600 text-sm">Edit</button>
+                                    <button className="text-red-500 text-sm">Delete</button>
+                                </div>
+                            </div>
+                        ))}
+
+                    </div>
+
                 </div>
+
             </div>
 
             {/*{ Recent Activity and Quick Actions}*/}
@@ -454,3 +524,5 @@ export default function DashboardContent() {
         </main>
     )
 }
+
+export default DashboardContent;
